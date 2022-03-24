@@ -1,4 +1,4 @@
-# Crop dynamics in the Indus Village model: insights on risk and risk mitigation strategies in face of environmental variability and climate change
+# Crop dynamics in the Indus Village model
 Presentation for 'Engineering the Past to build a Resilient Future' workshop at University of Leicester (25th March 2022).
 
 Prepared with *reveal.js* (see https://revealjs.com/)
