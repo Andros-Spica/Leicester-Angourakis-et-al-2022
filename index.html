@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Crop dynamics in the Indus Village model</title>
+
+		<meta name="description" content="Made with Reveal.JS, A framework for easily creating beautiful presentations using HTML, by Hakim El Hattab">
+		<meta name="author" content="Andreas Angourakis">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="reveal.js-master/dist/reset.css">
+		<link rel="stylesheet" href="reveal.js-master/dist/reveal.css">
+		<link rel="stylesheet" href="reveal.js-master/dist/theme/solarized.css" id="theme">
+		
+		<!-- Custom modifications to structure slides -->
+		<link rel="stylesheet" href="myMods.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js-master/plugin/highlight/zenburn.css" id="highlight-theme">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+            	<section data-state="title-page">
+					<h3>Crop dynamics in the Indus Village model</h3>
+					<p>
+						<small>
+							Andreas <b>Angourakis</b>
+							(<a href="https://twitter.com/AndrosSpica" target="_blank">@AndrosSpica</a>),
+							Jennifer <b>Bates</b>
+							(<a href="https://twitter.com/DrJenniferBates" target="_blank">@DrJenniferBates</a>),<br>
+							Jean-Phillipe <b>Baudouin</b>,
+							Alena <b>Giesche</b>, 
+							Joanna <b>Walker</b>,<br>
+							M. Cemre <b>Ustunkaya</b>, 
+							Nathan <b>Wright</b>,
+							<a href="http://www.bhu.ac.in/aihc/rn.htm" target="_blank">Ravindra N. <b>Singh</b></a> and 
+							<a href="https://www.arch.cam.ac.uk/directory/cap59" target="_blank">Cameron A. <b>Petrie</b></a>
+						</small>
+					</p>
+					<div style="font-size: 50%">available at 
+						<a href="https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/" target="_blank">https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/</a><br>
+						<a href="https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/index.html?print-pdf" target="_blank">https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/index.html?print-pdf</a> (printable version)
+					</div>
+					<br>
+					<img src="images/logo-combo_2022.png" alt="Logos"
+					style="width: 800px; border: none; box-shadow: none;"/>
+
+					<aside class="notes">
+						I will be presenting today how we have approached crop dynamics in the Indus Village model 
+						and where it sits in our overall modelling programme,
+						within the context and research questions of the TwoRains ERC project. 
+					</aside>
+				</section>
+				
+				<section>
+					<section data-background="https://gamepedia.cursecdn.com/minecraft_gamepedia/6/63/The_13w22a_Banner.png?version=c9547c31873e81c2fcff3b56461a4da5">
+						<br><br><br><br><br>
+						<h3 style="background-color: beige;"><b style="color:black">1.</b> 
+							<i style="color:crimson">Indus Village overview</i></h3>
+						<a style="font-size: 33%; color: black; background-color: beige; opacity: 50%;" href="https://minecraft.gamepedia.com/File:The_13w22a_Banner.png" target="_blank">
+							Image source: Minecraft Wiki (&copy; Mojang Studios), via Gamepedia
+						</a>
+						
+						<aside class="notes">
+							I'll start with a brief overview of the Indus Village model, 
+							and the research questions that motivate us.
+						</aside>
+					</section>
+
+					<section>
+						<h3>End-goals</h3>
+						<p>
+							Explore human <b style="color: crimson">adaptation to the variability</b><br>
+							in landscapes of <i style="color:royalblue">NW India</i> during the <i style="color: royalblue">Mature Harappan</i> (urban phase of the Indus Civilisation)
+						</p>
+						<p class="fragment">
+							Expose the <b style="color: crimson">sustainability</b> of 
+							<i style="color:royalblue">food production regimes</i>,<br>
+							mainly in terms of <i style="color: crimson">cropping strategies</i>, <br>
+							in front of <i style="color:royalblue">climate change</i>
+						</p>
+						
+						<aside class="notes">
+							The Two Rains modelling programme was set to explore human adaptation to the 
+							variability in landscapes of NW India during the Mature Harappan.
+							Specifically, we focused on the surroundings of the sites in Haryana 
+							studied by Two Rains and former projects.
+							|
+							Our aim is to expose the sustainability of food production regimes, 
+							especially in terms of the diversity of cropping strategies,
+							and if and how this diversity was favourable or adverse to urbanisation.
+						</aside>
+					</section>
+
+					<section>
+						<i class="fragment"></i>
+						<div class="r-stack">
+							<img src="images/Household-model-infograph-v6_p1.png" alt="Goal model p1"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p2.png" alt="Goal model p2"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p3.png" alt="Goal model p3"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p4.png" alt="Goal model p4"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p5.png" alt="Goal model p5"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p6.png" alt="Goal model p6"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p7.png" alt="Goal model p7"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p8.png" alt="Goal model p8"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p9.png" alt="Goal model p9"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p10.png" alt="Goal model p10"
+							style="border: none; box-shadow: none"/>
+							<img class="fragment" src="images/Household-model-infograph-v6_p11.png" alt="Goal model p11"
+							style="border: none; box-shadow: none"/>
+						</div>
+						<i class="fragment"></i>
+						
+						<aside class="notes">
+							First, we defined what we believe are essential elements of rural, food-producing settlements.
+							Our approach was to re-imagine an integral, yet blurry picture of what village life in the Indus 
+							would look like, based on known archaeological evidence, but also on minimum assumptions informed 
+							by parallels in space and time.
+							|
+							In a broad sense, these elements include:
+							| Climate: more specifically the weather conditions related to solar radiation, temperature and precipitation. 
+							| Land: which includes soil, water and cover.
+							| Food production: mainly crops, which translate the condition of land and climate into foodstuff.
+							| A human population: organised in households and groups and inhabiting a settlement.
+							| The demography rulling the dynamics of this population,
+							| The nutritional budget that regulates its health,
+							| The diet that feeds into it,
+							| and the food production economy that describes how production, distribution and storage of foodstuffs happens.
+							| A exchange system that connects agents to other agents, and to agents in settlements outside the local economy.
+							| And finally, bonding all together, the decision-making process that households would go through 
+							to chose and revise their food production strategies, particularly in terms of the triplet use-conditions-investment.
+							|
+							Everything strictly within a small scale, 
+							with one-hectare land units covering a total area of twenty-five kilometres squared, 
+							and with processes being iterated up to a daily basis.
+						</aside>
+					</section>
+					
+					<section>
+						<div id="left50">
+							<img src="images/00-OverallDesign.png" alt="Indus Village design"
+							style="width: 400px; border: none; box-shadow: none"/>
+						</div>
+						<div id="left50">
+							Modular</b> design<br>
+							<a class="fragment" href="https://github.com/Andros-Spica/indus-village-model/blob/master/diagrams/RoadMapSoFar_2021-05.png" target="_blank">
+								<img src="images/RoadMapSoFar_2021-05.png" alt="road map so far"
+									style="width: 250px; border: none; box-shadow: none"/>
+							</a>
+							
+							<ul style="font-size: 50%;">
+								<li class="fragment">Implementation in <i style="color: crimson">NetLogo</i>, documentation in <i style="color: royalblue">pseudocode diagrams</i> and <i style="color: royalblue">R markdown</i></li>
+								<li class="fragment"><i style="color: crimson">parameter</i> exploration (sensitivity analysis)</li>
+								<li class="fragment"><i style="color: crimson">scenarios</i> (parameters, programmed trends<br>and changes, alternative algorithms)</li>
+							</ul>
+						</div>
+						
+						<aside class="notes">
+							Deriving from this general picture, we represented all these aspects 
+							as submodels or parts of submodels, highlighted here in blue.
+							These submodels are intentionally designed as modules,
+							meaning they can function independently as models, if the required input is given.
+							Besides the advantage in terms of code stability and extensibility,
+							our hope is that each of these submodels can be more easily re-used by others in the future.
+							|
+							The full version of the Indus Village model is still under development.
+							Here I will concentrate on those parts that are fully consolidated and explored. 
+							We are thus leaving aside the submodels dealing strictly with human-related mechanisms.
+							| 
+							The model is implemented in NetLogo in a modular and progressive manner, 
+							while each part is also thoroughly documented with pseudo-code diagrams and 
+							R markdown demonstrations. 
+							| 
+							To properly understand the model at each stage of complexity, 
+							we are performing extensive sensitivity analyses. 
+							| 
+							To inform and test our hypotheses, we perform experiments designed to 
+							represent scenarios, particularly by varying parameters, programming trends and changes,
+							and using alternative designs.
+						</aside>
+					</section>
+
+					<section>
+						<p style="font-size: 50%;">
+							<a href="https://doi.org/10.1088/1748-9326/abacf9" target="_blank">
+								Angourakis A, Bates J, Baudouin J-P, Giesche A, Ustunkaya M C, Wright N, Singh R N and Petrie C A. 2020.<br>
+								How to ‘downsize’ a complex society: an agent-based modelling approach to assess the resilience of Indus Civilisation settlements to past climate change.<br>
+								Environmental Research Letters, 15:115004.<br>
+								DOI: 10.1088/1748-9326/abacf9
+							</a>
+						</p>
+						
+						<aside class="notes">
+							You can check more details on our approach and the overall design of the Indus Village model 
+							in our most recent publication.
+						</aside>
+					</section>
+
+				</section>
+			
+				<section>
+					<section data-background="https://daniel-davies.github.io/13-RoboFarm/farming.png">
+						<br><br><br><br><br>
+						<h3 style="background-color: beige;"><b style="color:black">2.</b> 
+							<i style="color:crimson">Crop model</i></h3>
+						<a style="font-size: 33%; color: black; background-color: beige; opacity: 50%;" href="https://daniel-davies.github.io/13-RoboFarm/" target="_blank">
+							Image source: Daniel Davies and Brett Galkowski (&copy; Mojang Studios)
+						</a>
+						
+						<aside class="notes">
+							As you have seen in the diagram, the weather and soil water models feed their outcomes directly 
+							into the Crop model, whose function in turn is to calculate the yields of one or more types 
+							of crop growing in specific conditions.  
+						</aside>
+					</section>
+
+					<section>
+						<div id="left50">
+							<a title="Petrie & Bates 2017, J. J World Prehist, 30:81, Fig. 3" 
+								href="https://doi.org/10.1007/s10963-017-9101-z" target="_blank">
+								<img width="400" alt="Petrie & Bates 2017, Fig. 3" 
+								src="https://media.springernature.com/lw785/springer-static/image/art%3A10.1007%2Fs10963-017-9101-z/MediaObjects/10963_2017_9101_Fig3_HTML.gif">
+							</a>
+						</div>
+						<div id="right40">
+							<br>
+							<h4><i style="color: slateblue">Crops</i> in the Indus Civilisation</h4>
+							<ul style="font-size: 50%">
+								<li>Cereals:
+									<ul>
+										<li>winter or rabi: barley, wheat</li>
+										<li>pre-monsoon summer or zaid: millets</li>
+										<li>post-monsoon summer or kharif: millets, rice<br></li>
+									</ul>
+								</li>
+								<li>Pulses</li>
+								<li>Other</li>
+							</ul>
+							<br>
+							<a title="Bates 2019, J. Open Arch. Data, 7:5" 
+								href="https://doi.org/10.5334/joad.57" target="_blank">
+							<i style="font-size: 33%">Bates 2019, J. Open Arch. Data, 7:5</i>
+							</a>
+							<br><br>
+							<i>Multi-cropping</i>
+							<br>
+							<a title="Petrie & Bates 2017, J. J World Prehist, 30:81, Fig. 3" 
+							href="https://doi.org/10.1007/s10963-017-9101-z" target="_blank">
+							<i style="font-size: 33%">Petrie & Bates 2017, J. J World Prehist</i>
+							</a>
+						</div>
+						
+						<aside class="notes">
+							Agriculture was the main pilar of the Indus food economy, in combination with animal husbandry,
+							and other activities such as fishing.
+							The crops cultivated were ancient varieties of wheat, barley (grown during winter or rabi),
+							various millets and rice (grown in pre and post monsoon or zaid and kharif seasons), 
+							among many others.
+							One key aspect raised in previous research is how farmers managed seasonality and climate
+							variation, particularly if and how multi-cropping was performed. 
+						</aside>
+					</section>
+
+					<section>
+						<h4><i style="color: slateblue">Crop</i> model</h4>
+						
+						<div id="left30">
+							<p style="font-size: 66%;">
+								Adapted from<br>the <i style="color: crimson;">SIMPLE crop model</i>
+								<br>
+								<a title="Zhao et al. 2019" 
+							href="https://doi.org/10.1016/j.eja.2019.01.009" target="_blank">
+							<i style="font-size: 50%">Zhao et al. 2019, European J. of Agronomy, 104:97-106</i></a>
+							</p>
+
+							<ul style="font-size: 50%;">
+								<li>One model, many crops</li>
+								<li>Crops defined by 13 parameters</li>
+								<li>Integrates ARID</li>
+								<li>Biomass growth: RUE modulated by temperature, CO<sub>2</sub> and ARID</li>
+								<li>A single growth phase (def. thermal time)</li>
+								<li>
+									Output: <i style="color: crimson;">yield</i> (g·m<sup>-2</sup>)
+									</a>
+								</li>
+							</ul>
+						</div>
+						
+						<div id="right70" class="fragment">
+							<p style="font-size: 50%;">
+								Crops - subset of Indus subset of Indus staple crops
+							</p>
+							<img src="images/cropTable.jpg" alt="Crop model - cropTable"
+							style="width: 600px; border: none; box-shadow: none"/>
+							<br>
+							<i style="font-size: 50%;">variable in: season &amp; cycle duration | RUE level | water stress sensitivity</i>
+
+							<br>
+							<img class="fragment" src="images/Angourakis-et-al-2020_Fig6_crop.jpg" alt="Crop model - simulation run"
+							style="width: 400px; border: none; box-shadow: none"/>
+						</div>
+
+						<aside class="notes">
+							With the purpose of representing multi-cropping practices, 
+							we have chosen to use the SIMPLE crop model,
+							which simplifies crop dynamics enough so we can operate with multiple crops, 
+							without the necessity of dealing with multiple models and a high number of parameters.
+							The SIMPLE crop model calculates the daily biomass based on growth stages 
+							defined in thermal time and the modulation of the radiation use efficiency by temperature, 
+							carbon dioxide concentrations and water stress.
+							| 
+							After implementing this model in NetLogo, we adapted it to a spatial scheme where multicropping is possible.
+							Following the approach of the original authors, crop variety takes form in the 
+							configuration of a relatively small number of parameters.
+							The crops selected here, i.e. cereals, were chosen for our initial experiments 
+							and are not controlled by empirical data on ancient cultivars of the Indus River Basin. 
+							Instead, they represent archetypes of crops identified so far in the archaeological 
+							record which might had a significant role throughout the Mature Harappan. 
+							These crops were also selected to cover a range of meaningful parameter diversity 
+							within SIMPLE's definitions. 
+							Even though not calibrated, values are informed by crop modelling systems 
+							and crop-specific studies.
+							|
+							example of simulation run showing biomass growth and harvest of two of the crops above.
+						</aside>
+					</section>
+
+					<section>
+						<h4><i style="color: slateblue">Crop</i> model | Yield & Seasonality</h4>
+						<img src="images/CropModelResultsMosaic_v2.png" alt="Crop model results - mosaic"
+							style="width: 750px; border: none; box-shadow: none"/>
+							<p style="font-size: 50%;">
+								<b style="color: slateblue">Crop</b> model outcome (using input from <b style="color: crimson;">Weather</b> and <b style="color: crimson;">Soil Water</b> models)
+							</p>
+						<aside class="notes">
+							Within the scope of Indus Village, parametrisation focused mainly on 
+							representing crops that differ in growing season and water stress sensitivity.
+							For rabi, we included wheat and barley, with medium sensitivity;
+							For zaid, proso millet, with low sensitivity; 
+							For kharif, rice and pearl millet, respectively with high and low sensitivity.
+							| 
+							One of the key roles of the Crop model is to mediate 
+							between the trajectory of ARID during the growing season of a crop and the yield produced.
+							By design, the relationship between ARID and yield is mediated by 
+							the crop's water sensitivity, and here you can see the implications of
+							choosing certain crops under highly variable year-round conditions.
+							Crops with higher water sensitivity (like rice) will only reach 
+							the majority of their potential yield if ARID is kept close to minimum 
+							and are more likely to fail in dry years.
+						</aside>
+					</section>
+					
+				</section>
+			
+				<section>
+					<section data-background="https://static.planetminecraft.com/files/image/minecraft/project/2020/041/12728756_l.webp">
+						<br><br><br><br><br>
+						<h3 style="background-color: beige;"><b style="color:black">3.</b> 
+							<i style="color:crimson">Integrated Land Crop model</i></h3>
+						<a style="font-size: 33%; color: black; background-color: beige; opacity: 50%;" href="https://www.planetminecraft.com/project/small-farm-4515041/" target="_blank">
+							Image source: Merreable in Planet Minecraft (&copy; Mojang Studios)
+						</a>
+						
+						<aside class="notes">
+							The second modelling milestone is the Integrated Land Crop model.
+							It combines the Integrated Land Unit model with the Crop model.
+						</aside>
+					</section>
+
+					<section>
+						<p style="font-size: 50%;">
+							
+						</p>
+						<div id="left50">
+							<img src="images/Fig6_terrains.png" alt="terrains"
+							style="width: 450px; border: none; box-shadow: none"/>
+						</div>
+						<div id="right50">
+							<p style="font-size: 50%;">
+								&leftarrow; &nbsp; &nbsp; sample of <b>terrains</b> (created with <b style="color: green;">Land</b> model)
+							</p>
+						<ul style="font-size: 60%;">
+							<li>
+								<b style="color: darkgoldenrod;">Land Water</b> + <b style="color: brown;">Crop</b> = <b style="color: crimson;">Land Crop</b>
+							</li>
+							<li class="fragment">
+								<b style="color: green;">Land</b> + <b style="color: royalblue;">Weather</b> + <b style="color: slateblue;">Soil Water</b> = <b style="color: darkgoldenrod;">Land Water</b><br> 
+								<b>river inflow</b>, <b>run-off</b> &amp; <b>inundation</b>
+							</li>
+							<br>
+							<li class="fragment">
+								Crops as <b>ecological components</b><br>
+								<i style="font-size: 70%;"><b style="color: blueviolet;">water (aquatic)</b> > 
+									<b style="color: orange; background-color: brown;">crops</b> > <b style="color: dodgerblue;">wood</b> >
+									<b style="color: green;">brush</b> > <b style="color: red;">grass</b> > 
+									bare soil</i>
+							</li>
+							<br>
+							<li class="fragment">
+								<b>Crop choice</b> and <b>management</b> variables<br>
+								<ul style="font-size: 80%;">
+									<li>crop <b style="color: crimson;">selection</b>: which crops to grow</li>
+									<li>cropping <b style="color: crimson;">intensity</b>:<br>% of land unit for all crops</li>
+									<li>crop <b style="color: crimson;">frequency</b>:<br>% of intensity for each crop</li>
+									<li>other: spacing, sowing/harvest dates</li>
+								</ul>
+							</li>
+						</ul>
+						</div>
+
+						<aside class="notes">
+							The Land Crop model comes as an integration of the Crop model with the Land Water model,
+							|
+							which in turn is an integration of the Land, Weather, and Soil Water models (that we will not cover here).
+							Suffice to know that the Land Water model introduces river water inflow and solves both
+							run-off and inundation exchanges between land units.
+							|
+							The integration of the Land Crop model was relatively straightforward.
+							The outputs of all former submodels feed directly into the required inputs of the Crop model,
+							and few adjustments are required.
+							|
+							All crops growing in a land unit are considered as an additional component 
+							forming the unit's ecological community. Within the scheme set in the Land Water model, 
+							expanding surface water (i.e. inundation) continues to have preference over all other 
+							components. In turn, given its artificial nature, crop area has preference over all remaining 
+							components (i.e. through clearing, deforesting, and weeding).
+							| 
+							In absence of humans, crop choice and management are represented in the Land Crop model as three variables, 
+							namely selection, intensity, and frequency. 
+							Selection is the list of crops to be simulated in land units.
+							Intensity is the percentage of the land unit area to be used by all crops selected, 
+							unless diminished by inundation. This has been kept constant at 50% throughout all experiments until now.
+							Frequency is a list containing the percentage of 
+							effective intensity (i.e. intensity minus any overlap with surface water) 
+							that is dedicated for each crop in selection.
+							The model also inherits other management aspects from the Crop model,
+							that for now were not systmatically explored.
+						</aside>
+					</section>
+
+					<section>
+						<h4><i style="color:slateblue">Land Crop</i> model | Results</h4>
+						<div id="left60">
+							<p style="font-size: 50%;">
+								Impact of <i style="color: royalblue;">flooding areas</i> dependent on water sensitivity
+							</p>
+							<img src="images/Fig7_exp3_ARIDComparison.png" alt="ARID comparison terrains"
+							style="width: 500px; border: none; box-shadow: none"/>
+							<img src="images/exp3_yieldPerTerrainCrop_river.png" alt="ARID comparison terrains"
+							style="width: 500px; border: none; box-shadow: none"/>
+						</div>
+						
+						<div id="right40">
+							<img src="images/exp3_yieldSpatialDistribution.png" alt="exp3 mean yield"
+							style="width: 450px; border: none; box-shadow: none"/>
+						</div>
+						
+
+						<aside class="notes">
+							In these examples, we can appretiate how most terrains will 
+							present effective borders between low and high yield areas.
+							
+							Productivity distribution can be linked to all land unit properties,
+							but the key factor is clearly the hydrological structure, and consequently relief.
+							
+							You can see here that crops, 
+							which are constrained differently by ARID and other factors,
+							show different level of contrast between these areas. 
+						</aside>
+					</section>
+
+					<section>
+						<h4><i style="color: slateblue">Land Crop</i> model | Results</h4>
+						<img src="images/exp5_corTotalYieldFreqSpatialDistribution.png" alt="exp3 mean yield"
+							style="width: 450px; border: none; box-shadow: none"/>
+						<div id="right40">
+							
+							<p style="font-size: 70%;">
+								<b>Experiment with <i style="color: crimson;">randomised</i> crop frequencies</b>
+							</p>
+							<p class="fragment" style="font-size: 50%;">
+								
+								(Local) <i style="color: forestgreen;">crop niche</i> gradient:<br>
+								correlation between 
+								<i style="color: gold;">land unit total yield</i> 
+								and 
+								<i style="color: violet;">frequency</i> of each crop.
+							</p>
+
+							<img class="fragment" src="images/Screenshot I1.png" alt="screenshot I1 detail"
+							style="width: 300px; border: none; box-shadow: none"/>
+						</div>
+
+						<aside class="notes">
+							Human agency is not explicitly modelled in this version, 
+							even though it is central to the broader Indus Village design. 
+							To approach crop management, 
+							we designed a experiment where frequency per crop is randomised at each land unit.
+							| 
+							This experiments aims at evidencing if and when there are
+							"crop niche gradients" that could be relevant for crop choice and
+							the overall resilience of food production.
+							We measured this by plotting for each land unit and terrain
+							the correlation between the land unit total yield and
+							the frequency of a crop. 
+							This means that when there is a positive correlation, 
+							the crop niche is stronger, and vice versa.
+							|
+							These results highlight the divide between thirsty and drought-resistant crops.
+							You can see here how rice and, to a lesser extent, wheat and barley concentrate 
+							their niches around flooding areas, while millets, especially proso millet, 
+							are moved further away to drier areas.
+							|
+							These results are promising for our goal with the IndusVillage,
+							since it shows the terms under which farming households need to decide 
+							on their cropping strategies and how those may change with land and weather conditions.
+						</aside>
+					</section>
+
+					<section>
+						<p style="font-size: 50%;">
+							Angourakis A, Bates J, Baudouin J-P, Giesche A, Walker J, Ustunkaya M C,<br>Wright N, Singh R N and Petrie C A. (in review).<br>
+							Weather, land and crops in the Indus Village model: A simulation framework for crop dynamics under environmental variability and climate change in the Indus Civilisation.<br>
+							Quaternary (<a href="https://www.mdpi.com/journal/quaternary/special_issues/human_activities"target="_blank">Special Issue: Human Activities and Development of Food Production in the Holocene</a>).
+						</p>
+						
+						<aside class="notes">
+							You can check more details on the Land Crop model and its components 
+							we hope very soon in our next paper.
+						</aside>
+					</section>
+
+				</section>
+
+				<section class="fragments">
+					<h4>Towards the <i style="color: slateblue">Indus Village agent</i></h4>
+					<h3><i style="color: crimson">Crop choice dilemma</i></h3>
+					<p style="font-size: 50%;">
+						which crops to grow in a <b>land unit</b>, given the mandate of producing <b>a certain amount of yield</b><br>
+						from a speciﬁc <b>set of crops</b> with <b>diverse characteristics</b>
+					</p>
+					<ul style="font-size: 80%;">
+						<li class="fragment">Crop <i style="color: crimson">selection</i> &amp; <i style="color: forestgreen">diversity</i></li>
+						<li class="fragment">Limited <i style="color: dodgerblue">means of production</i> and <i style="color: dodgerblue">workforce</i></li>
+						<li class="fragment"><i style="color:violet">Seasonality</i> &amp; <i style="color: slateblue">Climate-driven variability</i></li>
+						<li class="fragment">Local &amp; regional <i style="color: orange">environmental diversity</i></li>
+					</ul>
+						
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section class="fragments">
+					<h4>Towards the <i style="color: slateblue">Indus Village agent</i></h4>
+					<h3><i style="color: crimson">Risk</i> in the crop choice dilemma</h3>
+					<p style="font-size: 80%;">
+						risk associated with <b>water stress sensitivity</b>:<br><b style="color: crimson">high-risk</b> ("thirsty") vs <b style="color: crimson">low-risk</b> ("drought-resistant")
+					</p>
+					<ul style="font-size: 80%;">
+						<li class="fragment">Why choose high-risk crops at all?</li>
+						<li class="fragment">condition A: <i style="color: dodgerblue">crop value</i> outweights the risk (e.g. cash crop)</li>
+						<li class="fragment">condition B: risk can be <i style="color:violet">mitigated</i></li>
+					</ul>
+						
+					<aside class="notes">
+						Within the scope of our approach, sensitivity to soil water stress is 
+						the intrinsic factor driving most of the variability in productivity and 
+						thus determining the risk that investing in it entails.
+						Solely according to this parameter, we are able 
+						to rank crops from low to high-risk (millets to winter cereals to rice),
+						and correlate it with their yields under a wide variety of conditions. 
+						In light of our results, low-risk crops are either more predictable (pearl millet) 
+						or sustainably productive (proso millet) under virtually any regime of water 
+						availability offered in our experiments.
+						In contrast, high-risk crops like rice, and in less measure winter cereals, 
+						offer either low or inconsistent yields depending on if there is a systemic 
+						lack of water (i.e. low average annual precipitation, dry seasons, dry areas) 
+						or more temporary, unpredictable drying conditions.
+						| 
+						Still, a question remains:
+						Why do farmers grow more sensitive/high risk crops
+						(presumibly, as the IC farmers did)?
+						|
+						The risk associated with a crop is weighted by farmers not only in relation 
+						to the sheer amount of biomass harvested, but also to its value per capita 
+						for consumption and exchange as well as cultural reasons.
+						One extreme scenario is where entire regions specialise in the production 
+						of one or few highly valued crops (cash crops), and obtain through trade 
+						all other goods required by its economy.
+						|
+						Another side of the risk equation is that the risk itself can be reduced, 
+						to a point in which an otherwise risky crop can be safely cultivated, 
+						even if its value is not particularly high.
+					</aside>
+				</section>
+
+				<section class="fragments">
+					<h4>Towards the <i style="color: slateblue">Indus Village agent</i></h4>
+					<h3><i style="color: crimson">Risk-mitigation</i> in the crop choice dilemma</h3>
+					<p style="font-size: 80%;">
+						Strategies:
+					</p>
+					<ul style="font-size: 80%;">
+						<ul>
+							<li class="fragment"><i style="color: slateblue">hydrophile</i>: keep the water flowing<br>
+								&rightarrow; <i style="color: crimson">minimise</i> the risk of high-risk crops
+							</li>
+							<li class="fragment"><i style="color: orange">polyphile</i>: keep it (agro)diverse<br>
+								&rightarrow; <i style="color: crimson">compensate</i> the risk of high-risk crops
+							</li>
+							<li class="fragment">To be often combined locally,<br>also with other agronomic and economic strategies</li>
+						</ul>
+					</ul>
+						
+					<aside class="notes">
+						Probably the most intuitive measure to minimise soil water stress in 
+						agriculture is to make more water available to crops. This hydrophile 
+						strategy can be performed by either sowing crops selectively in well-watered 
+						areas or mobilising water into drier land.
+						|
+						Another, more holistic strategy to cope with risk is to spread the investment 
+						into multiple crops, environments, and agricultural land use practices. 
+						By improving and maintaining agrodiversity the farming agent can buffer 
+						the ﬂuctuations in yield of individual crops while also safeguarding the 
+						future productivity of the entire food economy.
+						The polyphile strategy is not embraced as a form of optimising agricultural 
+						production in a given year, but as a way to safeguard enough production
+						under inescapable uncertainties.
+						|
+						Although potentially leading to opposite practices,
+						the hydrophile and polyphile risk mitigation strategies can be combined locally, 
+						either as household or village-wide traditions.
+						A composite approach will give a different weight to each of these strategies, 
+						and would often include multiple rules-of-thumb speciﬁc to certain crops under 
+						certain conditions.
+						Additionally, farmers can incorporate speciﬁc practices that reduce the overall 
+						risk by addressing other hazards, such as the use of manure and complementary 
+						crops (e.g., legumes) to replenish soil fertility.
+						Other more general risk mitigation strategies can also be added to the mix, 
+						such as common pooling, planning for a fallback surplus, or improving long-term 
+						storage infrastructure.
+					</aside>
+				</section>
+
+				<section class="fragments">
+					<h3><i style="color: slateblue">Conclusions</i></h3>
+					<ul style="font-size: 80%;">
+						<li class="fragment"><i style="color: dodgerblue">Seasonality</i> matters</li>
+						<li class="fragment"><i style="color: forestgreen">Low</i> and <i style="color: crimson">high</i>-risk crops</li>
+						<li class="fragment"><i style="color: slateblue">Multi-cropping</i> and <i style="color: gold">risk mitigation</i></li>
+						<br>
+						<li class="fragment">Long-haul ABM modelling - next models to be integrated:
+							<br>
+							<i style="color:orange">demography</i>, 
+							<i style="color: orange">nutrition</i>, 
+							<i style="color: orange">food economy</i> and 
+							<i style="color: orange">land use</i></li>
+					</ul>
+						
+					<aside class="notes">
+						the first big lesson we learn is that seasonality does matter a lot when dealing with agricultural production.
+						In this sense, ignoring the nuances of fine temporal resolution
+						might push us towards critically mistaken interpretations.
+						|
+						The importance of the diversity of crops is also raised by our preliminary results, 
+						even when using a very simple crop model.
+						Most notably, there is a striking difference between low and high water sensitivity crops,
+						which in a context like the Indus Basin translates as low and high risk for farmers.
+						| 
+						Given these results, we are eager to truly experiment with populations of farmers engaged in multi-cropping
+						in order to further understand how and under which conditions multi-cropping enables risk mitigation.
+						|
+						Our next steps, that is to consolidate and integrate the remaining IndusVillage submodels, 
+						will allow us to finally do just that.
+					</aside>
+				</section>
+
+				<section>
+					<h3>'TwoRains' project</h3>
+					<h4>ERC, 2015-2021</h4>
+					
+					<br>
+					<ul>
+						<li><a href="https://www.arch.cam.ac.uk/research/projects/two-rains" target="_blank">Institutional Web page</a></li>
+						<li><a href="https://tworains.wordpress.com" target="_blank">Project blog</a></li>
+						<li><a href="https://https://github.com/Andros-Spica/indus-village-model" target="_blank">Indus Village model repository</a></li>
+					</ul>
+						
+					<aside class="notes">
+						If you would like to know more about this work and our project in general,
+						please visit our project page, our blog and the GitHub repository where 
+						all materials related to the Indus Village model can be found. 
+					</aside>
+				</section>
+
+				<section>
+					<h3>Acknowledgements</h3>
+					<p style="font-size: 66%">
+						Thanks to the <b style="color: slateblue">Land, Water and Settlement</b> and <b style="color: crimson">TwoRains</b> teams:<br><br>
+						Aftab Alam, Alessandro Ceccarelli, Sagorika Chakraborty, 
+						Sudarshan Chakradhari, Arti Chowdhary, Yama Dixit, Charly French, Adam Green, 
+						Henry Green, Lily Green, David Hodell, Penny Jones, Carla Lancelotti, Emma Lightfoot, Frank Lynam, 
+						Sayantani Neogi, Hector Orengo, Arun Kumar Pandey, Danika Parikh, Vikas Pawar, Amit Ranjan,
+						David Redhouse, Dheerendra Pratab Singh, & Akshyeta Suryanarayan.
+						<br><br>
+						Special thanks also to the Department of AIHC and Archaeology, BHU, the European Research Council (ERC), 
+						and the UK-India Education and Research Initiative (UKIERI) for support and funding, and to the Archaeological 
+						Survey of India for permission to carry out the work.
+					</p>
+						
+					<aside class="notes">
+						I would like to thank our project members and collaborators, 
+						without them this work would not be possible.  
+					</aside>
+
+				</section>
+
+				<section data-background="https://thumbs.gfycat.com/PepperyCalculatingGemsbok-size_restricted.gif">
+					<br><br><br><br><br>
+					<p style="background-color: beige; color: black;"><i style="color: crimson;">THANK YOU</i> FOR YOUR ATTENTION!</p>
+					<div style="font-size: 50%; color: black; background-color: beige;">available at 
+						<a href="https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/" target="_blank">https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/</a><br>
+						<a href="https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/index.html?print-pdf" target="_blank">https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/index.html?print-pdf</a> (printable version)
+					</div>
+					<a style="font-size: 33%; color: black; background-color: beige; opacity: 50%;" href="https://www.minecraft.net/en-us/article/block-week-chest" target="_blank">
+						Image source: gfycat (&copy; Mojang Studios)
+					</a>
+						
+					<aside class="notes">
+						Thank you for your attention 
+						and I hope you enjoyed this presentation!
+					</aside>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="reveal.js-master/dist/reveal.js"></script>
+        <script src="reveal.js-master/plugin/zoom/zoom.js"></script>
+		<script src="reveal.js-master/plugin/notes/notes.js"></script>
+		<script src="reveal.js-master/plugin/search/search.js"></script>
+		<script src="reveal.js-master/plugin/markdown/markdown.js"></script>
+		<script src="reveal.js-master/plugin/highlight/highlight.js"></script>
+
+		<script src="reveal.js-menu/menu.js"></script>
+		<script src="reveal.js-plugins/audio-slideshow/plugin.js"></script>
+		<script src="reveal.js-plugins/audio-slideshow/RecordRTC.js"></script>
+		<script src="reveal.js-plugins/audio-slideshow/recorder.js"></script>
+
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				mouseWheel: true,
+				slideNumber: 'c/t',
+/*
+				audio: {
+					prefix: 'audio/',
+					suffix: '.webm',
+					defaultDuration: 5,
+					textToSpeechURL: "http://api.voicerss.org/?key=f02cebf4e99c493d8a0048fde8a96278&hl=en-gb&c=ogg&src=",
+					advance: 0,
+					autoplay: false,
+					defaultNotes: false,
+					defaultText: false,
+					playerOpacity: 0.5
+				},
+
+				menu: { // Menu works best with font-awesome installed: sudo apt-get install fonts-font-awesome
+					themes: false,
+					transitions: false,
+					markers: true,
+					hideMissingTitles: true
+				},
+
+				keyboard: { 
+					82: function() { Recorder.toggleRecording(); },	// press 'r' to start/stop recording
+					90: function() { Recorder.downloadZip(); }, 	// press 'z' to download zip containing audio files
+					84: function() { Recorder.fetchTTS(); } 	// press 't' to fetch TTS audio files
+  				},
+*/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMenu
+					,RevealAudioSlideshow, RevealAudioRecorder
+					]
+			});
+
+		</script>
+	</body>
+	<div id="background-header">
+		<div style="text-align:left; position:absolute; top:3%; left: 10%; font-size:100%; color:gray">
+			<i>Engineering the Past to Build a Resilient Future<br>University of Leicester</i>
+		</div>
+		<div style="text-align:left; position:absolute; top:3%; right: 10%; font-size:100%; color:gray">
+			<b>Angourakis et al. 25 March 2022</b>
+		</div>
+		<div style="text-align:right; position:absolute; top:6%; right: 10%; font-size:100%; color:gray">
+			<b><a style="color: darkcyan;" href="https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/">https://andros-spica.github.io/Leicester-Angourakis-et-al-2022/</a></b>
+		</div>
+	</div>
+</html>
